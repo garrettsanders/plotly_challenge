@@ -2,14 +2,17 @@ function buildMetadata(samples) {
   d3.json("samples.json").then((data) => {
     var metadata = data.metadata;
     console.log(metadata);
-    var resultArray = metadata.filter(sampleObj => sampleObj.id == samples);
-    console.log(resultArray);
-    var result = resultArray[0];
-    var metaText = d3.select("#sample-metadata")
-   
+    var resultArray1 = metadata.filter(Obj => Obj.metadata == samples);
+    console.log(resultArray1);
+    var result1 = resultArray1[0];
+    console.log(result1);
+    var metaText = d3.select("#sample-metadata");
+    Object.entries(result1).forEach(([key, value]) => {
+      metaText.append("div")
+      .text(`${key}: ${value}`);
     })
-  };
-
+    });
+  }
   buildMetadata()
 
 function buildCharts(sample) {
@@ -52,10 +55,11 @@ function buildCharts(sample) {
 
     var barData = [
       {
-        x: otu_ids,
-        y: sample_values,
-        text: otu_labels,
-        type: "bar"
+        x: sample_values,
+        y: otu_labels,
+        text: otu_ids,
+        type: "bar",
+        orientation: "h"
       }
     ]
 
@@ -67,4 +71,27 @@ function buildCharts(sample) {
     Plotly.newPlot("bar", barData, barLayout);
 })
 };
+
 buildCharts("940")
+
+function init(option) {
+  d3.json("samples.json").then((data) => {
+   var names = data.names;
+   console.log(names);
+   var resultArray2 = names.filter(Obj => Obj.names == option);
+    console.log(resultArray2);
+    var result2 = resultArray2[0];
+    console.log(result2);
+    var dropDown = d3.select("#selDataset");
+    
+    
+  })
+};
+
+
+  
+
+
+
+ 
+  init();
