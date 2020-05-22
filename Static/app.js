@@ -74,24 +74,22 @@ function buildCharts(sample) {
 
 buildCharts("940")
 
-function init(option) {
+function init(options) {
+  dropDownMenu = d3.select("#selDataset");
   d3.json("samples.json").then((data) => {
    var names = data.names;
    console.log(names);
-   var resultArray2 = names.filter(Obj => Obj.names == option);
-    console.log(resultArray2);
-    var result2 = resultArray2[0];
-    console.log(result2);
-    var dropDown = d3.select("#selDataset");
+   names.forEach(name => {
+     dropDownMenu.append("dropDownMenu")
+     .text(name)
+     .attr("value", name)
+   })
+   
+   
     
     
   })
 };
 
 
-  
-
-
-
- 
-  init();
+init();
